@@ -23,7 +23,6 @@ public class Department {
     private Long id;
     private String name;
 
-
     @OneToMany(mappedBy = "department")
     private List<Position> positions;
 

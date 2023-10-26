@@ -10,4 +10,8 @@ public interface EmployeeService {
     List<EmployeeDto> getAllEmployee();
 
     EmployeeDto getEmployee(int id);
+
+    void deleteEmployeeById(int id);
+
+
 }

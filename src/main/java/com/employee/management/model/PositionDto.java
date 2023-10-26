@@ -1,31 +1,27 @@
 package com.employee.management.model;
 
 import com.employee.management.entity.Department;
-import com.employee.management.entity.Position;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.employee.management.entity.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class EmployeeDto {
+public class PositionDto {
 
     private Long id;
 
     private String name;
-    private String surname;
-    private String email;
-
-    private boolean status;
+    private double salary;
 
     private Department department;
-    private Position position;
+    private List<Employee> employees;
+
 
 }

@@ -18,4 +18,6 @@ public abstract class EmployeeMapper {
     public abstract EmployeeDto entityToDto(Employee employee);
 
     public abstract List<EmployeeDto> entityListToDtoList(List<Employee> employees);
+
+
 }

@@ -1,5 +1,6 @@
 package com.employee.management.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,10 +34,12 @@ public class Employee {
 
     private boolean status;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;

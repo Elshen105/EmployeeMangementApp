@@ -6,11 +6,9 @@ import com.employee.management.model.EmployeeDto;
 import com.employee.management.repository.EmployeeRepository;
 import com.employee.management.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +34,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return EmployeeMapper.INSTANCE.entityToDto(employee);
     }
+
+    @Override
+    public void deleteEmployeeById(int id) {
+        employeeRepository.deleteById(id);
+    }
+
+
 
 
 }
