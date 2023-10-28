@@ -1,9 +1,9 @@
 package com.employee.management.mapper;
 
-import com.employee.management.entity.Employee;
+
+import com.employee.management.entity.Department;
 import com.employee.management.entity.Position;
-import com.employee.management.model.EmployeeDto;
-import com.employee.management.model.PositionDto;
+import com.employee.management.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -17,6 +17,16 @@ import java.util.List;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public abstract class PositionMapper {
     public static final PositionMapper INSTANCE = Mappers.getMapper(PositionMapper.class);
+
+
+    public abstract Position modelToEntity(PositionRequest request);
+
+    public abstract PositionResponse entityToModel(Position position);
+
+    public abstract List<PositionResponse> entityListToModelList(List<Position> positions);
+
+
+
 
     public abstract Position dtoToEntity(PositionDto positionDto);
 

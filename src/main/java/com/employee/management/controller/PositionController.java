@@ -1,6 +1,8 @@
 package com.employee.management.controller;
 
 import com.employee.management.model.PositionDto;
+import com.employee.management.model.PositionRequest;
+import com.employee.management.model.PositionResponse;
 import com.employee.management.service.PositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +17,17 @@ public class PositionController {
     private final PositionService positionService;
 
     @PostMapping()
-    public PositionDto save(@RequestBody PositionDto positionDto) {
-        return positionService.savePosition(positionDto);
+    public PositionResponse save(@RequestBody PositionRequest request) {
+        return positionService.savePosition(request);
     }
 
     @GetMapping("/{id}")
-    public PositionDto getOne(@PathVariable int id) {
+    public PositionResponse getOne(@PathVariable int id) {
         return positionService.getPosition(id);
     }
 
     @GetMapping("/showAllPosition")
-    public List<PositionDto> getAllPositions() {
+    public List<PositionResponse> getAllPositions() {
         return positionService.getAllPosition();
     }
 

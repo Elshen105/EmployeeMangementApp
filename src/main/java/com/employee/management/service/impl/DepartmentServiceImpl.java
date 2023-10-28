@@ -2,7 +2,8 @@ package com.employee.management.service.impl;
 
 import com.employee.management.entity.Department;
 import com.employee.management.mapper.DepartmentMapper;
-import com.employee.management.model.DepartmentDto;
+import com.employee.management.model.DepartmentRequest;
+import com.employee.management.model.DepartmentResponse;
 import com.employee.management.repository.DepartmentRepository;
 import com.employee.management.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
@@ -13,31 +14,32 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
-    private final DepartmentRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
-    public DepartmentDto saveDepartment(DepartmentDto employeeDto) {
-        Department employee = DepartmentMapper.INSTANCE.dtoToEntity(employeeDto);
-        return DepartmentMapper.INSTANCE.entityToDto(employeeRepository.save(employee));
+    public DepartmentResponse saveDepartment(DepartmentRequest request) {
+        Department employee = DepartmentMapper.INSTANCE.modelToEntity(request);
+        return DepartmentMapper.INSTANCE.entityToModel(departmentRepository.save(employee));
     }
 
     @Override
-    public List<DepartmentDto> getAllDepartment() {
-        List<Department> employees = employeeRepository.findAll();
-        return DepartmentMapper.INSTANCE.entityListToDtoList(employees);
+    public List<DepartmentResponse> getAllDepartment() {
+        List<Department> employees = departmentRepository.findAll();
+        return DepartmentMapper.INSTANCE.entityListToModelList(employees);
 
     }
 
     @Override
-    public DepartmentDto getDepartment(int id) {
-        var employee = employeeRepository.findById(id).orElseThrow(()-> new RuntimeException("Department is NotFound"));
+    public DepartmentResponse getDepartment(int id) {
+        var employee = departmentRepository.findById(id).orElseThrow(()-> new RuntimeException("Department is NotFound id :" + id));
 
-        return DepartmentMapper.INSTANCE.entityToDto(employee);
+        return DepartmentMapper.INSTANCE.entityToModel(employee);
     }
+
 
     @Override
     public void deleteDepartmentById(int id) {
-        employeeRepository.deleteById(id);
+        departmentRepository.deleteById(id);
     }
 
 

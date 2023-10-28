@@ -1,6 +1,8 @@
 package com.employee.management.controller;
 
 import com.employee.management.model.DepartmentDto;
+import com.employee.management.model.DepartmentRequest;
+import com.employee.management.model.DepartmentResponse;
 import com.employee.management.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +17,17 @@ public class DepartmentController {
     private final DepartmentService departmentService;
 
     @PostMapping()
-    public DepartmentDto save(@RequestBody DepartmentDto departmentDto) {
-        return departmentService.saveDepartment(departmentDto);
+    public DepartmentResponse save(@RequestBody DepartmentRequest request) {
+        return departmentService.saveDepartment(request);
     }
 
     @GetMapping("/{id}")
-    public DepartmentDto getOne(@PathVariable int id) {
+    public DepartmentResponse getOne(@PathVariable int id) {
         return departmentService.getDepartment(id);
     }
 
     @GetMapping("/showAllDepartment")
-    public List<DepartmentDto> getAllDepartments() {
+    public List<DepartmentResponse> getAllDepartments() {
         return departmentService.getAllDepartment();
     }
 

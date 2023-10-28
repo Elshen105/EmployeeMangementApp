@@ -1,15 +1,18 @@
 package com.employee.management.service;
 
-import com.employee.management.model.DepartmentDto;
+import com.employee.management.model.DepartmentRequest;
+import com.employee.management.model.DepartmentResponse;
 
 import java.util.List;
 
 public interface DepartmentService {
-    DepartmentDto saveDepartment(DepartmentDto departmentDto);
+    DepartmentResponse saveDepartment(DepartmentRequest request);
 
-    DepartmentDto getDepartment(int id);
 
-    List<DepartmentDto> getAllDepartment();
+    DepartmentResponse getDepartment(int id);
+
+    List<DepartmentResponse> getAllDepartment();
+
 
     void deleteDepartmentById(int id);
 }

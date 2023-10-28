@@ -14,14 +14,10 @@ import java.util.List;
 @Data
 @Builder
 public class PositionDto {
-
     private Long id;
 
-    private String name;
-    private double salary;
+
 
     private Department department;
-    private List<Employee> employees;
-
-
+    private List<EmployeeDto> employees;
 }

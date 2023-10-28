@@ -34,12 +34,12 @@ public class Employee {
 
     private boolean status;
 
-    @JsonManagedReference
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @JsonManagedReference
+
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
