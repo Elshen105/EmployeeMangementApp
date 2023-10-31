@@ -1,7 +1,8 @@
 package com.employee.management.mapper;
 
 import com.employee.management.entity.Employee;
-import com.employee.management.model.EmployeeDto;
+import com.employee.management.model.EmployeeRequest;
+import com.employee.management.model.EmployeeResponse;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -13,11 +14,16 @@ import java.util.List;
 public abstract class EmployeeMapper {
     public static final EmployeeMapper INSTANCE = Mappers.getMapper(EmployeeMapper.class);
 
-    public abstract Employee dtoToEntity(EmployeeDto employeeDto);
 
-    public abstract EmployeeDto entityToDto(Employee employee);
+    public abstract Employee modelToEntity(EmployeeRequest request);
 
-    public abstract List<EmployeeDto> entityListToDtoList(List<Employee> employees);
+    public abstract void modelToEntity(@MappingTarget Employee entity, EmployeeRequest request);
+
+    public abstract EmployeeResponse entityToModel(Employee employee);
+
+    public abstract List<EmployeeResponse> entityListToModelList(List<Employee> employees);
+
+
 
 
 }

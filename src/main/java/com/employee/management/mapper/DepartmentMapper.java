@@ -2,13 +2,9 @@ package com.employee.management.mapper;
 
 
 import com.employee.management.entity.Department;
-import com.employee.management.model.DepartmentDto;
 import com.employee.management.model.DepartmentRequest;
 import com.employee.management.model.DepartmentResponse;
-import org.mapstruct.Mapper;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -21,17 +17,12 @@ public abstract class DepartmentMapper {
 
     public abstract Department modelToEntity(DepartmentRequest request);
 
+    public abstract void modelToEntity(@MappingTarget Department entity, DepartmentRequest request);
+
     public abstract DepartmentResponse entityToModel(Department department);
 
     public abstract List<DepartmentResponse> entityListToModelList(List<Department> departments);
 
 
 
-
-
-    public abstract Department dtoToEntity(DepartmentDto departmentDto);
-
-    public abstract DepartmentDto entityToDto(Department department);
-
-    public abstract List<DepartmentDto> entityListToDtoList(List<Department> departments);
 }

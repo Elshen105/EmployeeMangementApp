@@ -1,23 +1,22 @@
 package com.employee.management.model;
 
+
 import com.employee.management.entity.Department;
-import com.employee.management.entity.Employee;
+import com.employee.management.entity.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class PositionDto {
-    private Long id;
+public class EmployeeResponse {
+    private int id;
+    private String name;
+    private String surname;
+    private String email;
+    private boolean status;
 
-
-
-    private Department department;
-    private List<EmployeeDto> employees;
 }

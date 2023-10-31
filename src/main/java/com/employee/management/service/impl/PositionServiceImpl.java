@@ -1,8 +1,8 @@
 package com.employee.management.service.impl;
 
 import com.employee.management.entity.Position;
+import com.employee.management.exception.NotFoundException;
 import com.employee.management.mapper.PositionMapper;
-import com.employee.management.model.PositionDto;
 import com.employee.management.model.PositionRequest;
 import com.employee.management.model.PositionResponse;
 import com.employee.management.repository.PositionRepository;
@@ -38,7 +38,16 @@ public class PositionServiceImpl implements PositionService {
 
     }
 
+    @Override
+    public PositionResponse updatePosition(int id, PositionRequest request) {
+        Position position = positionRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Position is NotFound is id : " + id));
 
+        PositionMapper.INSTANCE.modelToEntity(position, request);
+        Position updatePosition = positionRepository.save(position);
+
+        return PositionMapper.INSTANCE.entityToModel(updatePosition);
+    }
 
     @Override
     public void deletePositionById(int id) {

@@ -1,6 +1,5 @@
 package com.employee.management.controller;
 
-import com.employee.management.model.DepartmentDto;
 import com.employee.management.model.DepartmentRequest;
 import com.employee.management.model.DepartmentResponse;
 import com.employee.management.service.DepartmentService;
@@ -29,6 +28,11 @@ public class DepartmentController {
     @GetMapping("/showAllDepartment")
     public List<DepartmentResponse> getAllDepartments() {
         return departmentService.getAllDepartment();
+    }
+
+    @PutMapping("/{id}")
+    public DepartmentResponse updateDepartment(@PathVariable int id, @RequestBody DepartmentRequest request) {
+        return departmentService.updateDepartment(id, request);
     }
 
     @DeleteMapping("/delete/{id}")

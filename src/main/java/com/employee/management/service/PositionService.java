@@ -1,6 +1,5 @@
 package com.employee.management.service;
 
-import com.employee.management.model.PositionDto;
 import com.employee.management.model.PositionRequest;
 import com.employee.management.model.PositionResponse;
 
@@ -14,6 +13,7 @@ public interface PositionService {
 
     List<PositionResponse> getAllPosition();
 
+    PositionResponse updatePosition(int id, PositionRequest request);
 
     void deletePositionById(int id);
 

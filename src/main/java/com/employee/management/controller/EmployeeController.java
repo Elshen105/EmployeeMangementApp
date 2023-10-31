@@ -1,6 +1,7 @@
 package com.employee.management.controller;
 
-import com.employee.management.model.EmployeeDto;
+import com.employee.management.model.EmployeeRequest;
+import com.employee.management.model.EmployeeResponse;
 import com.employee.management.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,18 +16,24 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @PostMapping()
-    public EmployeeDto save(@RequestBody EmployeeDto employeeDto) {
-        return employeeService.saveEmployee(employeeDto);
+    public EmployeeResponse save(@RequestBody EmployeeRequest request) {
+        return employeeService.saveEmployee(request);
     }
 
     @GetMapping("/{id}")
-    public EmployeeDto getOne(@PathVariable int id) {
+    public EmployeeResponse getOne(@PathVariable int id) {
         return employeeService.getEmployee(id);
     }
 
     @GetMapping("/showAllEmployee")
-    public List<EmployeeDto> getAllEmployees() {
+    public List<EmployeeResponse> getAllEmployees() {
         return employeeService.getAllEmployee();
+    }
+
+
+    @PutMapping("/{id}")
+    public EmployeeResponse updateEmployee(@PathVariable int id, @RequestBody EmployeeRequest request) {
+        return employeeService.updateEmployee(id, request);
     }
 
     @DeleteMapping("/delete/{id}")

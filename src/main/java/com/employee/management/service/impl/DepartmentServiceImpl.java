@@ -1,6 +1,7 @@
 package com.employee.management.service.impl;
 
 import com.employee.management.entity.Department;
+import com.employee.management.exception.NotFoundException;
 import com.employee.management.mapper.DepartmentMapper;
 import com.employee.management.model.DepartmentRequest;
 import com.employee.management.model.DepartmentResponse;
@@ -36,6 +37,20 @@ public class DepartmentServiceImpl implements DepartmentService {
         return DepartmentMapper.INSTANCE.entityToModel(employee);
     }
 
+
+    @Override
+    public DepartmentResponse updateDepartment(int id, DepartmentRequest request) {
+
+        var department = departmentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Department is NotFound id : " + id));
+
+        DepartmentMapper.INSTANCE.modelToEntity(department, request);
+        var updatedDepartment = departmentRepository.save(department);
+
+        return DepartmentMapper.INSTANCE.entityToModel(updatedDepartment);
+
+
+    }
 
     @Override
     public void deleteDepartmentById(int id) {

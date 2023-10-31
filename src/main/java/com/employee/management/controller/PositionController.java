@@ -1,6 +1,5 @@
 package com.employee.management.controller;
 
-import com.employee.management.model.PositionDto;
 import com.employee.management.model.PositionRequest;
 import com.employee.management.model.PositionResponse;
 import com.employee.management.service.PositionService;
@@ -29,6 +28,11 @@ public class PositionController {
     @GetMapping("/showAllPosition")
     public List<PositionResponse> getAllPositions() {
         return positionService.getAllPosition();
+    }
+
+    @PutMapping("/{id}")
+    public PositionResponse updatePosition(@PathVariable int id, @RequestBody PositionRequest request) {
+        return positionService.updatePosition(id, request);
     }
 
     @DeleteMapping("/delete/{id}")

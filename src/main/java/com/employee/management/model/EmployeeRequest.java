@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class EmployeeDto {
-
+public class EmployeeRequest {
     private String name;
     private String surname;
     private String email;

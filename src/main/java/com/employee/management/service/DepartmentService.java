@@ -13,6 +13,9 @@ public interface DepartmentService {
 
     List<DepartmentResponse> getAllDepartment();
 
+    DepartmentResponse updateDepartment(int id, DepartmentRequest request);
 
     void deleteDepartmentById(int id);
+
+
 }

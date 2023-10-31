@@ -1,15 +1,20 @@
 package com.employee.management.service;
 
-import com.employee.management.model.EmployeeDto;
+import com.employee.management.model.EmployeeRequest;
+import com.employee.management.model.EmployeeResponse;
 
 import java.util.List;
 
 
 public interface EmployeeService {
-    EmployeeDto saveEmployee(EmployeeDto employeeDto);
-    List<EmployeeDto> getAllEmployee();
+    EmployeeResponse saveEmployee(EmployeeRequest request);
 
-    EmployeeDto getEmployee(int id);
+
+    EmployeeResponse getEmployee(int id);
+
+    List<EmployeeResponse> getAllEmployee();
+
+    EmployeeResponse updateEmployee(int id, EmployeeRequest request);
 
     void deleteEmployeeById(int id);
 
