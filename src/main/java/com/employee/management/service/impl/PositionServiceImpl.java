@@ -8,6 +8,8 @@ import com.employee.management.model.PositionResponse;
 import com.employee.management.repository.PositionRepository;
 import com.employee.management.service.PositionService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,42 +17,75 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PositionServiceImpl implements PositionService {
+    private static final Logger logger = LoggerFactory.getLogger(PositionServiceImpl.class);
 
     private final PositionRepository positionRepository;
 
     @Override
     public PositionResponse savePosition(PositionRequest request) {
+        logger.info("ActionLog.savePosition.start request: {}", request);
+
         Position position = PositionMapper.INSTANCE.modelToEntity(request);
-        return PositionMapper.INSTANCE.entityToModel(positionRepository.save(position));
+        PositionResponse response = PositionMapper.INSTANCE.entityToModel(positionRepository.save(position));
+
+
+        logger.info("ActionLog.savePosition.end response: {}", response);
+        return response;
     }
 
-    @Override
-    public PositionResponse getPosition(int id) {
-        var position = positionRepository.findById(id).orElseThrow(()-> new RuntimeException("Position is NotFound"));
-
-        return PositionMapper.INSTANCE.entityToModel(position);
-    }
 
     @Override
     public List<PositionResponse> getAllPosition() {
+        logger.info("ActionLog.getAllPosition.start");
+
         List<Position> positions = positionRepository.findAll();
-        return PositionMapper.INSTANCE.entityListToModelList(positions);
+        List<PositionResponse> positionResponses = PositionMapper.INSTANCE.entityListToModelList(positions);
+
+        logger.info("ActionLog.getAllPosition.end positions count: {}", positionResponses.size());
+        return positionResponses;
+    }
+
+
+    @Override
+    public PositionResponse getPosition(int id) {
+        logger.info("ActionLog.getPosition.start id: {}", id);
+
+        var position = positionRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Position is NotFound"));
+
+        PositionResponse positionResponse = PositionMapper.INSTANCE.entityToModel(position);
+
+
+        logger.info("ActionLog.getPosition.end id: {}", id);
+        return positionResponse;
+
 
     }
 
+
+
     @Override
     public PositionResponse updatePosition(int id, PositionRequest request) {
+        logger.info("ActionLog.updatePosition.start id: {}", id);
+
         Position position = positionRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Position is NotFound is id : " + id));
 
         PositionMapper.INSTANCE.modelToEntity(position, request);
         Position updatePosition = positionRepository.save(position);
 
-        return PositionMapper.INSTANCE.entityToModel(updatePosition);
+        PositionResponse response = PositionMapper.INSTANCE.entityToModel(updatePosition);
+
+        logger.info("ActionLog.updatePosition.end id: {}", id);
+        return response;
     }
 
     @Override
     public void deletePositionById(int id) {
+        logger.info("ActionLog.deletePositionById.start id: {}", id);
+
         positionRepository.deleteById(id);
+
+        logger.info("ActionLog.deletePositionById.end id: {}", id);
     }
 }

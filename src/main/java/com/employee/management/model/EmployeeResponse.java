@@ -2,6 +2,7 @@ package com.employee.management.model;
 
 
 import com.employee.management.entity.Department;
+import com.employee.management.entity.Employee;
 import com.employee.management.entity.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +19,6 @@ public class EmployeeResponse {
     private String surname;
     private String email;
     private boolean status;
+
 
 }
