@@ -26,8 +26,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentResponse saveDepartment(DepartmentRequest request) {
         logger.info("ActionLog.saveDepartment.start request: {}", request);
 
-        Department employee = DepartmentMapper.INSTANCE.modelToEntity(request);
-        DepartmentResponse response = DepartmentMapper.INSTANCE.entityToModel(departmentRepository.save(employee));
+        Department department = DepartmentMapper.INSTANCE.modelToEntity(request);
+        DepartmentResponse response = DepartmentMapper.INSTANCE.entityToModel(departmentRepository.save(department));
 
 
         logger.info("ActionLog.saveDepartment.end response: {}", response);
