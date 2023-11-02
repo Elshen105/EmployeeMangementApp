@@ -9,39 +9,35 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
-@Builder
+
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "employee")
-public class Employee {
+@Data
+@Table(name = "user")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private int id;
 
     private String name;
     private String surname;
     private String email;
-
-
-//    private int departmentId; // I'm not sure
-//    private int positionId; // I'm not sure
-
+    private String username;
+    private String password;
     private boolean status;
 
-
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
-
-
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Position position;
+    @OneToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @CreationTimestamp
     @Column(name = "created_at")
