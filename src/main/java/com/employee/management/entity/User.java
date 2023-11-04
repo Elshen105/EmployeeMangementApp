@@ -7,10 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -19,7 +24,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +33,17 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    private String username;
-    private String password;
+
     private boolean status;
 
-    @OneToMany
+    @Column(unique = true)
+    private String username;
+
+    private String password;
+
+
+
+    @OneToMany(fetch = FetchType.EAGER)
     @Builder.Default
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -49,4 +60,31 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRole().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRole()))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
