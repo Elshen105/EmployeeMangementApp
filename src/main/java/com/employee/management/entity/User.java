@@ -33,11 +33,13 @@ public class User {
     private boolean status;
 
     @OneToMany
+    @Builder.Default
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> role = new HashSet<>();
+
 
     @CreationTimestamp
     @Column(name = "created_at")

@@ -12,21 +12,28 @@ import com.employee.management.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    UserRepository userRepository;
+
+    private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public UserResponse saveUser(UserRequest request) {
         logger.info("ActionLog.saveUser.start request: {}", request);
 
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
+
         var user = UserMapper.INSTANCE.modelToEntity(request);
         var response = UserMapper.INSTANCE.entityToModel(userRepository.save(user));
 
-        logger.info("ActionLog.saveUser.end response: {}", response);
+            logger.info("ActionLog.saveUser.end response: {}", response);
         return response;
     }
 }

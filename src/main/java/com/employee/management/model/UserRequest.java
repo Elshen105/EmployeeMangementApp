@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -14,6 +15,10 @@ import java.util.Set;
 @Builder
 public class UserRequest {
 
+    private String name;
+    private String surname;
+    private String email;
+    private boolean status;
     private String username;
     private String password;
 
