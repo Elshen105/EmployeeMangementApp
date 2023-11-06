@@ -2,6 +2,7 @@ package com.employee.management.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +21,16 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(request -> request
                 .requestMatchers("/api/v1/employee-management/auth/**")
                 .permitAll()
+
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/employee-management/departments/**")
+                .hasAuthority("ADMIN")
+
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/employee-management/employees/**")
+                .hasAuthority("ADMIN")
+
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/employee-management/positions/**")
+                .hasAuthority("ADMIN")
+
                 .anyRequest()
                 .authenticated()
 
