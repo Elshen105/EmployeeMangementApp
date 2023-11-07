@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
             logger.info("ActionLog.saveUser.end response: {}", response);
         return response;
     }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).get();
+    }
 }
