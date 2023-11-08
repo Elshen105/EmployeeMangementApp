@@ -1,10 +1,13 @@
 package com.employee.management.controller;
 
+import com.employee.management.model.LoginRequest;
+import com.employee.management.model.LoginResponse;
 import com.employee.management.model.UserRequest;
 import com.employee.management.model.UserResponse;
 import com.employee.management.service.UserService;
 import com.employee.management.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,9 +24,19 @@ public class AuthController {
         return userService.saveUser(request);
     }
 
-    @GetMapping("/generate-jwt/{username}")
-    public String generateJwt(@PathVariable String username) {
-        return jwtService.generateToken(userService.findByUsername(username));
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        return userService.login(request);
     }
+
+
+
+    @GetMapping("/test")
+    public ResponseEntity<?> test() {
+        return ResponseEntity.ok().build();
+    }
+
+
+
 
 }

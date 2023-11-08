@@ -1,17 +1,20 @@
 package com.employee.management.service.impl;
 
-import com.employee.management.entity.Department;
 import com.employee.management.entity.User;
-import com.employee.management.mapper.DepartmentMapper;
+import com.employee.management.exception.NotFoundException;
 import com.employee.management.mapper.UserMapper;
-import com.employee.management.model.DepartmentResponse;
+import com.employee.management.model.LoginRequest;
+import com.employee.management.model.LoginResponse;
 import com.employee.management.model.UserRequest;
 import com.employee.management.model.UserResponse;
 import com.employee.management.repository.UserRepository;
 import com.employee.management.service.UserService;
+import com.employee.management.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final JwtService jwtService;
+
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public UserResponse saveUser(UserRequest request) {
@@ -37,8 +44,40 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+
+
+
+    /*@Override
+    public User getUserByUsername(String username) {
+        logger.info("ActionLog.getUserByUsername.start request: {}", username);
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("User is NotFound is username :" + username));
+
+        logger.info("ActionLog.getUserByUsername.end response: {}", username);
+        return user;
+    }*/
+
+
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username).get();
+    public LoginResponse login(LoginRequest request) {
+        logger.info("ActionLog.login.start request: {}", request);
+
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
+                request.getPassword()));
+
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new NotFoundException("User is NotFound is username :" + request.getUsername()));
+
+        String token = jwtService.generateToken(user);
+
+        logger.info("ActionLog.login.end response: {}", token);
+        return LoginResponse
+                .builder()
+                .token(token)
+                .build();
+
     }
+
+
 }

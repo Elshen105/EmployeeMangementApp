@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.security.PublicKey;
 import java.util.Date;
-import java.util.Map;
 import java.util.function.Function;
 
 @Getter
@@ -51,7 +51,7 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        return extractExpiration(token).after(new Date());
     }
 
     private Date extractExpiration(String token) {
@@ -60,8 +60,7 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith((PublicKey) getSingKey())
-
+                .verifyWith((SecretKey) getSingKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
