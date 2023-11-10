@@ -22,13 +22,12 @@ public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
 
     private String name;
     private double salary;
 
-//    private int departmentId; // I'm not sure
 
     @ManyToOne
     @JoinColumn(name="department_id", nullable=false)

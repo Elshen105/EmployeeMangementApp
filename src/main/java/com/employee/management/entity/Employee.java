@@ -20,16 +20,12 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
 
     private String name;
     private String surname;
     private String email;
-
-
-//    private int departmentId; // I'm not sure
-//    private int positionId; // I'm not sure
 
     private boolean status;
 
