@@ -31,10 +31,6 @@ public class AuthController {
 
 
 
-    @GetMapping("/test")
-    public ResponseEntity<?> test() {
-        return ResponseEntity.ok().build();
-    }
 
 
 

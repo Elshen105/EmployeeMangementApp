@@ -84,7 +84,10 @@ public class PositionServiceImpl implements PositionService {
     public void deletePositionById(int id) {
         logger.info("ActionLog.deletePositionById.start id: {}", id);
 
-        positionRepository.deleteById(id);
+        Position position = positionRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Position is NotFound id : " + id));
+
+        positionRepository.delete(position);
 
         logger.info("ActionLog.deletePositionById.end id: {}", id);
     }

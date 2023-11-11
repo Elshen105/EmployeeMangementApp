@@ -87,7 +87,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void deleteDepartmentById(int id) {
         logger.info("ActionLog.deleteDepartmentById.start id: {}", id);
 
-        departmentRepository.deleteById(id);
+        var department = departmentRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Department is NotFound id : " + id));
+
+        departmentRepository.delete(department);
 
         logger.info("ActionLog.deleteDepartmentById.end id: {}", id);
     }

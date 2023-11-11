@@ -77,7 +77,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployeeById(int id) {
         logger.info("ActionLog.deleteEmployeeById.start id: {}", id);
 
-        employeeRepository.deleteById(id);
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Employee is NotFound id : " + id));
+
+        employeeRepository.delete(employee);
 
         logger.info("ActionLog.deleteEmployeeById.end id: {}", id);
     }
