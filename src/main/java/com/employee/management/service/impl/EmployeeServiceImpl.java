@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         logger.info("ActionLog.getEmployee.start id: {}", id);
 
         var employee = employeeRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Employee NotFound id: " + id));
+                .orElseThrow(()-> new NotFoundException("Employee NotFound id: " + id));
 
         EmployeeResponse employeeResponse = EmployeeMapper.INSTANCE.entityToModel(employee);
 

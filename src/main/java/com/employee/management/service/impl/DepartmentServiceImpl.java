@@ -54,7 +54,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         logger.info("ActionLog.getDepartment.start id: {}", id);
 
         var department = departmentRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Department is NotFound id :" + id));
+                .orElseThrow(()-> new NotFoundException("Department is NotFound id :" + id));
 
         DepartmentResponse response = DepartmentMapper.INSTANCE.entityToModel(department);
 
