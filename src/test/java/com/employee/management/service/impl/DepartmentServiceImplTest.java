@@ -31,7 +31,7 @@ class DepartmentServiceImplTest {
     private DepartmentRepository departmentRepository;
 
     @InjectMocks
-    private DepartmentServiceImpl departmentServiceImpl;
+    private DepartmentServiceImpl departmentService;
 
 
     @DisplayName("Returning the department according to the given ID")
@@ -43,7 +43,7 @@ class DepartmentServiceImplTest {
         given(departmentRepository.findById(id)).willReturn(Optional.of(department));
 
         // when
-        DepartmentResponse departmentResponse = departmentServiceImpl.getDepartment(id);
+        DepartmentResponse departmentResponse = departmentService.getDepartment(id);
 
         // when & then
 
@@ -62,7 +62,7 @@ class DepartmentServiceImplTest {
         // when
 
         // when & then
-        assertThrows(NotFoundException.class, () -> departmentServiceImpl.getDepartment(anyInt()));
+        assertThrows(NotFoundException.class, () -> departmentService.getDepartment(anyInt()));
     }
 
 
@@ -81,7 +81,7 @@ class DepartmentServiceImplTest {
 
         // when
         when(departmentRepository.save(any(Department.class))).thenReturn(department);
-        DepartmentResponse departmentResponse = departmentServiceImpl.saveDepartment(request);
+        DepartmentResponse departmentResponse = departmentService.saveDepartment(request);
 
         // when & then
 
@@ -101,7 +101,7 @@ class DepartmentServiceImplTest {
 
         // when
         when(departmentRepository.findAll()).thenReturn(Arrays.asList(department1, department2));
-        List<DepartmentResponse> allDepartment = departmentServiceImpl.getAllDepartment();
+        List<DepartmentResponse> allDepartment = departmentService.getAllDepartment();
 
         // then
 
@@ -125,7 +125,7 @@ class DepartmentServiceImplTest {
         willDoNothing().given(departmentRepository).delete(department);
 
         // when
-        departmentServiceImpl.deleteDepartmentById(id);
+        departmentService.deleteDepartmentById(id);
 
         // then
 
@@ -147,12 +147,49 @@ class DepartmentServiceImplTest {
         // when
 
         // when & then
-        assertThrows(NotFoundException.class, ()-> departmentServiceImpl.deleteDepartmentById(anyInt()));
+        assertThrows(NotFoundException.class, ()-> departmentService.deleteDepartmentById(anyInt()));
+    }
+
+
+    @DisplayName("Returning the new department according to the given Department name")
+    @Test
+    public void updateDepartmentSuccessTest() {
+        // given
+        int id = 1;
+        DepartmentRequest request = DepartmentRequest.builder().name("Software Department").build();
+        Department department = Department.builder().id(id).name("It Department").build();
+        given(departmentRepository.findById(id)).willReturn(Optional.of(department));
+        department.setName(request.getName());
+
+        // when
+        when(departmentRepository.save(any(Department.class))).thenReturn(department);
+        DepartmentResponse departmentResponse = departmentService.updateDepartment(id, request);
+
+        // then
+
+        assertThat(departmentResponse).isNotNull();
+
+
+
+
+
     }
 
 
 
+    @DisplayName("Returning the delete department error according to the given ID")
+    @Test
+    public void updateDepartmentErrorTest() {
+        // given
+        int id = 1;
+        DepartmentRequest request = DepartmentRequest.builder().name("Software Department").build();
+        given(departmentRepository.findById(anyInt())).willReturn(Optional.empty());
 
+        // when
+
+        // when & then
+        assertThrows(NotFoundException.class, ()-> departmentService.updateDepartment(id,request));
+    }
 
 
 
