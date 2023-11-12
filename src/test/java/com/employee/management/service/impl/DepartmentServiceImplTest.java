@@ -48,8 +48,8 @@ class DepartmentServiceImplTest {
         // when & then
 
         assertThat(departmentResponse).isNotNull();
-        assertEquals(1, departmentResponse.getId());
-        assertEquals("It Department", departmentResponse.getName());
+        assertEquals(1, departmentResponse.id());
+        assertEquals("It Department", departmentResponse.name());
 
     }
 
