@@ -51,18 +51,14 @@ public class PositionServiceImpl implements PositionService {
         logger.info("ActionLog.getPosition.start id: {}", id);
 
         var position = positionRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Position is NotFound"));
+                .orElseThrow(()-> new NotFoundException("Position is NotFound"));
 
         PositionResponse positionResponse = PositionMapper.INSTANCE.entityToModel(position);
 
 
         logger.info("ActionLog.getPosition.end id: {}", id);
         return positionResponse;
-
-
     }
-
-
 
     @Override
     public PositionResponse updatePosition(int id, PositionRequest request) {

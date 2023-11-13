@@ -38,12 +38,12 @@ class DepartmentServiceImplTest {
     @Test
     public void getDepartmentSuccessTest() {
         // given
-        int id = 1;
-        Department department = Department.builder().id(id).name("It Department").build();
-        given(departmentRepository.findById(id)).willReturn(Optional.of(department));
+        int departmentId = 1;
+        Department department = Department.builder().id(departmentId).name("It Department").build();
+        given(departmentRepository.findById(departmentId)).willReturn(Optional.of(department));
 
         // when
-        DepartmentResponse departmentResponse = departmentService.getDepartment(id);
+        DepartmentResponse departmentResponse = departmentService.getDepartment(departmentId);
 
         // when & then
 
@@ -75,7 +75,7 @@ class DepartmentServiceImplTest {
         // given
 
         int id = 1;
-        DepartmentRequest request = DepartmentRequest.builder().name("It Department").build();
+        DepartmentRequest request = new DepartmentRequest("It Department");
         Department department = Department.builder().id(id).name("It Department").build();
 
 
@@ -156,10 +156,10 @@ class DepartmentServiceImplTest {
     public void updateDepartmentSuccessTest() {
         // given
         int id = 1;
-        DepartmentRequest request = DepartmentRequest.builder().name("Software Department").build();
+        DepartmentRequest request = new DepartmentRequest("It Department");
         Department department = Department.builder().id(id).name("It Department").build();
         given(departmentRepository.findById(id)).willReturn(Optional.of(department));
-        department.setName(request.getName());
+        department.setName(request.name());
 
         // when
         when(departmentRepository.save(any(Department.class))).thenReturn(department);
@@ -182,7 +182,7 @@ class DepartmentServiceImplTest {
     public void updateDepartmentErrorTest() {
         // given
         int id = 1;
-        DepartmentRequest request = DepartmentRequest.builder().name("Software Department").build();
+        DepartmentRequest request = new DepartmentRequest("Software Department");
         given(departmentRepository.findById(anyInt())).willReturn(Optional.empty());
 
         // when
