@@ -47,27 +47,17 @@ public class UserServiceImpl implements UserService {
 
 
 
-    /*@Override
-    public User getUserByUsername(String username) {
-        logger.info("ActionLog.getUserByUsername.start request: {}", username);
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("User is NotFound is username :" + username));
-
-        logger.info("ActionLog.getUserByUsername.end response: {}", username);
-        return user;
-    }*/
 
 
     @Override
     public LoginResponse login(LoginRequest request) {
         logger.info("ActionLog.login.start request: {}", request);
 
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
-                request.getPassword()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username(),
+                request.password()));
 
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new NotFoundException("User is NotFound is username :" + request.getUsername()));
+        User user = userRepository.findByUsername(request.username())
+                .orElseThrow(() -> new NotFoundException("User is NotFound is username :" + request.password()));
 
         String token = jwtService.generateToken(user);
 
