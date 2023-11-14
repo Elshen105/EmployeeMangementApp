@@ -15,6 +15,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Arrays;
+
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
@@ -85,6 +87,26 @@ class DepartmentControllerTest {
                 .andExpect(jsonPath("$.id").value(departmentId))
                 .andExpect(jsonPath("$.name").value(departmentName));
     }
+
+
+    @Test
+    void getAllDepartmentSuccessTest() throws Exception {
+
+        var responseOne = new DepartmentResponse(1, "IT Department");
+        var responseTwo = new DepartmentResponse(2, "Software Department");
+        when(departmentService.getAllDepartment()).thenReturn(Arrays.asList(responseOne, responseTwo));
+
+        // When & Then
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/v1/employee-management/departments/showAllDepartment")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("ADMIN"),
+                                new SimpleGrantedAuthority("USER"))))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.size()").value(2));
+    }
+
 
 
     @Test
