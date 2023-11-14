@@ -4,6 +4,8 @@ import com.employee.management.model.PositionRequest;
 import com.employee.management.model.PositionResponse;
 import com.employee.management.service.PositionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +38,9 @@ public class PositionController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deletePosition(@PathVariable int id) {
+    public ResponseEntity<?> deletePosition(@PathVariable int id) {
         positionService.deletePositionById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 

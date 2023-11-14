@@ -4,6 +4,8 @@ import com.employee.management.model.DepartmentRequest;
 import com.employee.management.model.DepartmentResponse;
 import com.employee.management.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +38,9 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteDepartment(@PathVariable int id) {
+    public ResponseEntity<?> deleteDepartment(@PathVariable int id) {
         departmentService.deleteDepartmentById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 
