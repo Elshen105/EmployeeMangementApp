@@ -22,16 +22,15 @@ public class EmployeeController {
         return employeeService.saveEmployee(request);
     }
 
-    @GetMapping("/{id}")
-    public EmployeeResponse getOne(@PathVariable int id) {
-        return employeeService.getEmployee(id);
-    }
-
     @GetMapping("/showAllEmployee")
     public List<EmployeeResponse> getAllEmployees() {
         return employeeService.getAllEmployee();
     }
 
+    @GetMapping("/{id}")
+    public EmployeeResponse getOne(@PathVariable int id) {
+        return employeeService.getEmployee(id);
+    }
 
     @PutMapping("/{id}")
     public EmployeeResponse updateEmployee(@PathVariable int id, @RequestBody EmployeeRequest request) {

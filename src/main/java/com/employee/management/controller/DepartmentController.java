@@ -22,14 +22,14 @@ public class DepartmentController {
         return departmentService.saveDepartment(request);
     }
 
-    @GetMapping("/{id}")
-    public DepartmentResponse getOne(@PathVariable int id) {
-        return departmentService.getDepartment(id);
-    }
-
     @GetMapping("/showAllDepartment")
     public List<DepartmentResponse> getAllDepartments() {
         return departmentService.getAllDepartment();
+    }
+
+    @GetMapping("/{id}")
+    public DepartmentResponse getOne(@PathVariable int id) {
+        return departmentService.getDepartment(id);
     }
 
     @PutMapping("/{id}")
