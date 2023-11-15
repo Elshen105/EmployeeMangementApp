@@ -70,6 +70,24 @@ class DepartmentControllerTest {
 
 
     @Test
+    void getAllDepartmentSuccessTest() throws Exception {
+
+        var responseOne = new DepartmentResponse(1, "IT Department");
+        var responseTwo = new DepartmentResponse(2, "Software Department");
+        when(departmentService.getAllDepartment()).thenReturn(Arrays.asList(responseOne, responseTwo));
+
+        // When & Then
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/v1/employee-management/departments/showAllDepartment")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("ADMIN"),
+                                new SimpleGrantedAuthority("USER"))))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.size()").value(2));
+    }
+
+    @Test
     void getDepartmentSuccessTest() throws Exception {
         int departmentId = 2;
         String departmentName = "Software Department";
@@ -89,23 +107,7 @@ class DepartmentControllerTest {
     }
 
 
-    @Test
-    void getAllDepartmentSuccessTest() throws Exception {
 
-        var responseOne = new DepartmentResponse(1, "IT Department");
-        var responseTwo = new DepartmentResponse(2, "Software Department");
-        when(departmentService.getAllDepartment()).thenReturn(Arrays.asList(responseOne, responseTwo));
-
-        // When & Then
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/v1/employee-management/departments/showAllDepartment")
-                        .with(jwt().authorities(new SimpleGrantedAuthority("ADMIN"),
-                                new SimpleGrantedAuthority("USER"))))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(jsonPath("$.size()").value(2));
-    }
 
 
 
