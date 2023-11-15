@@ -52,14 +52,15 @@ class EmployeeControllerTest {
     void saveEmployeeSuccessTest() throws Exception {
         // Given
         int employeeId = 1, departmentId = 1, positionId = 1;
+        double positionSalary = 60000;
         String employeeName = "Rauf", departmentName = "IT Department", positionName = "IT Coordinator";
         String employeeSurname = "Elesgerov";
         String employeeEmail = "re@gmail.com";
         boolean employeeStatus = true;
 
 
-        var itDepartment = Department.builder().id(departmentId).name("IT Department").build();
-        var positionItCoordinator = Position.builder().id(positionId).name("IT Coordinator").salary(60000).build();
+        var itDepartment = Department.builder().id(departmentId).name(departmentName).build();
+        var positionItCoordinator = Position.builder().id(positionId).name(positionName).salary(positionSalary).build();
 
 
         var request = new EmployeeRequest(employeeName, employeeSurname, employeeEmail, employeeStatus, itDepartment, positionItCoordinator);
@@ -83,6 +84,29 @@ class EmployeeControllerTest {
 
     }
 
+
+
+    @Test
+    void getAllEmployeesSuccessTest() throws Exception {
+        int employeeId = 1;
+        int employeeId2 = 2;
+        var response = new EmployeeResponse(employeeId, "Rauf", "Elesgerov", "re@gmail.com", true);
+        var response2 = new EmployeeResponse(employeeId2, "Asif", "Quliyev", "aq@gmail.com", true);
+
+
+        when(employeeService.getAllEmployee()).thenReturn(Arrays.asList(response, response2));
+
+
+        // When & Then
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/v1/employee-management/employees/showAllEmployee")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("ADMIN"),
+                                new SimpleGrantedAuthority("USER"))))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.size()").value(2));
+    }
 
 
 
@@ -113,27 +137,7 @@ class EmployeeControllerTest {
 
 
 
-    @Test
-    void getAllEmployeesSuccessTest() throws Exception {
-        int employeeId = 1;
-        int employeeId2 = 2;
-        var response = new EmployeeResponse(employeeId, "Rauf", "Elesgerov", "re@gmail.com", true);
-        var response2 = new EmployeeResponse(employeeId2, "Asif", "Quliyev", "aq@gmail.com", true);
 
-
-        when(employeeService.getAllEmployee()).thenReturn(Arrays.asList(response, response2));
-
-
-        // When & Then
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/v1/employee-management/employees/showAllEmployee")
-                        .with(jwt().authorities(new SimpleGrantedAuthority("ADMIN"),
-                                new SimpleGrantedAuthority("USER"))))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(jsonPath("$.size()").value(2));
-    }
 
 
 

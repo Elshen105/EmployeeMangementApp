@@ -22,14 +22,15 @@ public class PositionController {
         return positionService.savePosition(request);
     }
 
-    @GetMapping("/{id}")
-    public PositionResponse getOne(@PathVariable int id) {
-        return positionService.getPosition(id);
-    }
 
     @GetMapping("/showAllPosition")
     public List<PositionResponse> getAllPositions() {
         return positionService.getAllPosition();
+    }
+
+    @GetMapping("/{id}")
+    public PositionResponse getOne(@PathVariable int id) {
+        return positionService.getPosition(id);
     }
 
     @PutMapping("/{id}")
