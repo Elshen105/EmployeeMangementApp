@@ -1,8 +1,6 @@
 package com.employee.management.mapper;
 
-import com.employee.management.entity.Position;
 import com.employee.management.entity.User;
-import com.employee.management.model.PositionRequest;
 import com.employee.management.model.UserRequest;
 import com.employee.management.model.UserResponse;
 import org.mapstruct.Mapper;

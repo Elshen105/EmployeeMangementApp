@@ -1,7 +1,6 @@
 package com.employee.management.mapper;
 
 
-import com.employee.management.entity.Department;
 import com.employee.management.entity.Position;
 import com.employee.management.model.*;
 import org.mapstruct.*;

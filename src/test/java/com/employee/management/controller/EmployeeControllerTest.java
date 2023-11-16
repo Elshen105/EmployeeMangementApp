@@ -2,8 +2,6 @@ package com.employee.management.controller;
 
 import com.employee.management.entity.Department;
 import com.employee.management.entity.Position;
-import com.employee.management.model.DepartmentRequest;
-import com.employee.management.model.DepartmentResponse;
 import com.employee.management.model.EmployeeRequest;
 import com.employee.management.model.EmployeeResponse;
 import com.employee.management.service.impl.EmployeeServiceImpl;
