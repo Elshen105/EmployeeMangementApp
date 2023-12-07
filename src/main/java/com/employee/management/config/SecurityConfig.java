@@ -33,7 +33,10 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.DELETE,
                         "/api/v1/employee-management/departments/**",
                         "/api/v1/employee-management/employees/**",
-                        "/api/v1/employee-management/positions/**"
+                        "/api/v1/employee-management/positions/**",
+
+                        // Swagger UI
+                        "/swagger-ui/**"
                 )
                 .hasAuthority("ADMIN")
                 .anyRequest()
