@@ -1,6 +1,8 @@
 package com.employee.management.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +34,8 @@ public class User implements UserDetails {
 
     private String name;
     private String surname;
+
+    @Email(message = "Wrong Email check KeyWord ---> @")
     private String email;
 
     private boolean status;
@@ -39,6 +43,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
 
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Could you check your password")
     private String password;
 
 
