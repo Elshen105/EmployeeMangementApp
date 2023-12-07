@@ -24,16 +24,14 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI myOpenAPI() {
         Contact contact = new Contact();
-        contact.setEmail("codepen@gmail.com");
-        contact.setName("CodePen");
-        contact.setUrl("https://codepen.io/");
+        contact.setName("EmployeeManagement");
 
         Info info = new Info()
-                .title("Course ERP")
+                .title("Employee Management")
                 .version("1.0")
                 .contact(contact)
-                .description("This Api exposes endpoints to manage tutorials.")
-                .termsOfService("https://codepen.io/");
+                .description("This Api exposes endpoints to employee-manage tutorials.")
+                .termsOfService("https://github.com/Elshen105/EmployeeMangementApp");
         return  new OpenAPI().info(info).addSecurityItem(
                 new SecurityRequirement().addList("Authorization")
         );
