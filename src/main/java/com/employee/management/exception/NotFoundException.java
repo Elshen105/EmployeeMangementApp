@@ -1,6 +1,6 @@
 package com.employee.management.exception;
 
-import lombok.Getter;
+import  lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
