@@ -1,4 +1,4 @@
-package com.employee.management.config;
+package com.employee.management.security;
 
 import com.employee.management.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
