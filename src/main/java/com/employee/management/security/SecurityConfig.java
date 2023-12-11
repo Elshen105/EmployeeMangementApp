@@ -1,6 +1,6 @@
-package com.employee.management.config;
+package com.employee.management.security;
 
-import com.employee.management.filter.JwtAuthFilter;
+import com.employee.management.security.filter.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
