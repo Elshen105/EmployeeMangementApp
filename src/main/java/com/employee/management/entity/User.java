@@ -37,7 +37,7 @@ public class User implements UserDetails {
     private String name;
     private String surname;
 
-    @Email(message = "Wrong Email check KeyWord ---> @")
+    @Email(message = "Wrong Email")
     private String email;
 
     private boolean status;
