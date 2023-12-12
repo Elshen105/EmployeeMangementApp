@@ -1,4 +1,4 @@
-package com.employee.management.security.filter;
+package com.employee.management.filter;
 
 import com.employee.management.service.jwt.JwtService;
 import jakarta.servlet.FilterChain;
