@@ -38,4 +38,10 @@ public class Department {
     private LocalDateTime updatedAt;
 
 
+    @PreRemove
+    private void preRemove() {
+        for (Employee employee: employees) {
+            employee.setDepartment(null);
+        }
+    }
 }

@@ -44,6 +44,11 @@ public class Position {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-
+    @PreRemove
+    private void preRemove() {
+        for (Employee employee: employees) {
+            employee.setPosition(null);
+        }
+    }
 
 }
