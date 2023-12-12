@@ -45,8 +45,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
 
-//    @NotBlank(message = "Password cannot be blank")
-//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Could you check your password")
+
     private String password;
 
 
