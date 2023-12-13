@@ -5,10 +5,13 @@ import com.employee.management.model.LoginResponse;
 import com.employee.management.model.UserRequest;
 import com.employee.management.model.UserResponse;
 import com.employee.management.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Validated
 @RequiredArgsConstructor
 @RequestMapping("${root.url}/auth")
 public class AuthController {
@@ -17,7 +20,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public UserResponse saveUser(@RequestBody UserRequest request) {
+    public UserResponse saveUser(@Valid @RequestBody UserRequest request) {
         return userService.saveUser(request);
     }
 
